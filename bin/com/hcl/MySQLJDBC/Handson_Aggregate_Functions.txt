@@ -1,0 +1,39 @@
+1)Write a query to display the average 8th hour unit consumption from electricity reading for all users.Give an alias name to the average 8th hour consumption as 'average_8th_hour_consumption'.
+
+	SELECT AVG(h8) average_8th_hour_consumption FROM electricity_reading;
+
+2) Write a query to display the average unit of electricity consumption for all the users.Give an alias name to the average units as 'average_units_of_electricity'.
+
+	SELECT AVG(total_units) AS 'average_units_of_electricity' FROM electricity_reading;
+	
+3) Write a query to display the average payable amount from bill where payable_amount is greater than 10000.Give an alias name to the average payable amount as 'average_payable_amount'.
+	
+	SELECT AVG(payable_amount) average_payable_amount FROM bill WHERE payable_amount>10000;
+
+4) Write a query to display the average of fine amount, whose payment date is on the year 2018.Give an alias name to the average fine amount as 'average_fine_amount'.
+
+	SELECT AVG(fine_amount) average_fine_amount FROM bill WHERE EXTRACT(YEAR FROM payment_date)=2018;
+
+5) Write a query to display the sum of payable amount from bill.Give an alias name to the sum of payable amount as 'sum_payable_amount'.
+
+	SELECT SUM(payable_amount) sum_payable_amount FROM bill;
+
+6) Write a query to display the sum of payable amount with due date '2017-10-01'.Give an alias name to the sum of payable amount as 'sum_payable_amount'.
+
+	SELECT SUM(payable_amount) sum_payable_amount FROM bill WHERE due_date='2017-10-01';
+
+7) Write a query to display the minimum total units consumed by all users from electricity reading table. Give an alias name to the minimum total units as 'min_total_units'.
+
+	SELECT MIN(total_units) min_total_units FROM bill;
+
+8) Write a query to display the second minimum fine amount from bill.Give an alias name to the second minimum fine amount as 'second_min_fine_amount'.
+
+	SELECT MAX(fine_amount) second_min_fine_amount FROM bill WHERE fine_amount<(SELECT MAX(fine_amount) FROM bill);
+
+9) Write a query to display the month and the minimum units of electricity consumed in each month. Give an alias name to the minimum units as 'minimum_units'.
+
+	SELECT month, MIN(total_units) 'minimum_units' FROM bill GROUP BY month;
+
+10) Write a query to display the standard deviation of the fine amount, whose payment date is on the year 2018.Give an alias name to the standard deviation to the fine amount as 'standard_deviation_amount'.
+
+	SELECT stddev(fine_amount) standard_deviation_amount FROM bill WHERE YEAR(payment_date)=2018;

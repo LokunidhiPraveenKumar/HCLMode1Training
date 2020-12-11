@@ -1,0 +1,100 @@
+1) Write a query to create a table 'electricity_connection_type'.
+
+CREATE TABLE electricity_connection_type(
+id INT PRIMARY KEY,
+connection_name VARCHAR(20)  NOT NULL
+);
+
+2) Write a query to create a table 'slab'.
+
+CREATE TABLE IF NOT EXISTS slap(
+id INT(11) PRIMARY KEY,
+connection_id INT(11) NOT NULL,
+from_unit INT(11) NOT NULL,
+to_unit INT(11) NOT NULL,
+rate DOUBLE,
+CONSTRAINT FOREIGN KEY(connection_id) REFERENCES electricity_connection_type(id)
+);
+
+3) Write a query to create a table 'building_type'.
+
+CREATE TABLE IF NOT EXISTS building_type(
+id INT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+connection_type_id INT(11) NOT NULL,
+CONSTRAINT foreign_key FOREIGN KEY(connection_type_id) REFERENCES  electricity_connection_type(id) ON DELETE CASCADE
+);
+
+4) Write a query to create a table 'building'
+
+CREATE TABLE building(
+id INT(11) PRIMARY KEY,
+owner_name VARCHAR(100) NOT NULL,
+address VARCHAR(100) NOT NULL,
+building_type_id INT(11) NOT NULL,
+contact_number VARCHAR(100) NOT NULL,
+email_address VARCHAR(100),
+CONSTRAINT buildingTypeID_foreignKey FOREIGN KEY(building_type_id) REFERENCES building_type(id)
+);
+
+5) Write a query to alter the column 'owner_name' to 'building_owner_name' in the table 'building'.
+
+ALTER TABLE building RENAME COLUMN owner_name TO building_owner_name;
+
+6) Write a query to change the datatype of the column address in the table 'building' to varchar(255).
+
+ALTER TABLE building MODIFY COLUMN address VARCHAR(255) NOT NULL;
+
+7) Write a query to create a constraint which allows only 'commercial' or 'home' connection_name in the 'electricity_connection_type' table.Specify constraint name as 'check_connection_name'.
+
+alter table electricity_connection_type add constraint check_connection_name check(connection_name='commercial' or connection_name='home');
+
+8) Write a query to rename table 'building' to 'building_details'.
+
+ALTER TABLE building RENAME TO building_details;
+
+9) Write a query to drop table 'slab'.
+
+DROP TABLE slap;
+
+10) Write a query to drop table 'building_details'.
+
+DROP TABLE building_details;
+
+11) Write a query to insert any 2 records into the 'electricity_connection_type' table.
+
+INSERT INTO electricity_connection_type VALUES(6,'commercial');
+INSERT INTO electricity_connection_type VALUES(1,'home');
+INSERT INTO electricity_connection_type VALUES(2,'commercial');
+
+12) Write a query to insert any 3 records into the 'slab' table.
+
+INSERT INTO slap VALUES(2,6,0,65,25.0), (3,6,0,55,20.0), (4,1,25,65,25.0);
+
+13) Write a query to insert any 5 records into the 'building_type' table
+
+INSERT INTO building_type VALUES(5,'Residential Building',1);
+INSERT INTO building_type VALUES(6,'Business Buildings',2);
+INSERT INTO building_type VALUES(10,'Educational Buildings',6);
+INSERT INTO building_type VALUES(12,'Public Buildings',1);
+INSERT INTO building_type VALUES(13,'Residental Buildings',2);
+INSERT INTO building_type VALUES(14,'Shopping Mall',6);
+
+14) Write a query to change the from_unit value from 0 to 1 in the 'slab' table.
+
+UPDATE slap SET from_unit=1 where from_unit=0;
+
+15) Write a query to change the name 'Shopping Mall' to 'Mall' in the building_type table.
+
+update building_type set name='Mall' where name='Shopping Mall';
+
+16) Write a query to delete the entire details of the table 'slab'.
+
+TRUNCATE slap; 
+(OR)
+DELETE FROM slap;
+
+17) Write a query to delete the rows from the table 'building_type' where the electricity connection is home .
+Hint: The connection_type_id for home is 1.
+
+DELETE FROM building_type WHERE  connection_type_id=1;
